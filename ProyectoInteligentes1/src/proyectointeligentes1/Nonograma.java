@@ -60,12 +60,13 @@ public class Nonograma {
         //
         //
         //
-        System.out.println("Antes de iniciar, en clase Nonograma, datos: ");
-        printData(datos);
+
+        //
+        //NO editar desde aquí
+        //
         Estado estadoInicial = new Estado(-1, null, this.datos, this.solucion);
         
         if (!estadoInicial.isSolucionado()) {
-            System.out.println("Una solución no pudo ser encontrada");
         } else {
             printMatrix(estadoInicial.getSolucion());
         }
