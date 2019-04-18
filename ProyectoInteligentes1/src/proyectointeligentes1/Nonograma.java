@@ -67,7 +67,7 @@ public class Nonograma {
         if (!estadoInicial.isSolucionado()) {
             System.out.println("Una solución no pudo ser encontrada");
         } else {
-            printMatrix(solucion);
+            printMatrix(estadoInicial.getSolucion());
         }
     }
     
