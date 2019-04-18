@@ -175,7 +175,7 @@ public class Estado {
                 copiaSolucion.get(nivel + 1).set(i, num);
             }
         }
-        this.hijos.add(new Estado(this.nivel++, this, this.datos, copiaSolucion));
+        this.hijos.add(new Estado(this.nivel+1, this, this.datos, copiaSolucion));
     }
 
     public boolean cumpleColumnas(ArrayList<Integer> numsFila) {
