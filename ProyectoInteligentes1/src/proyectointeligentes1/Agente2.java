@@ -29,24 +29,25 @@ public class Agente2 extends Agent {
             ACLMessage msj = receive();
             if (msj != null) {
 
-                System.out.println("Recibí: " + msj.getContent());
-                System.out.println("viene de: " + msj.getSender().getLocalName());
-
-                String[] infoMatriz = msj.getContent().split("-");
+//                System.out.println("Recibí: " + msj.getContent());
+//                System.out.println("viene de: " + msj.getSender().getLocalName());
+//
+//                String[] infoMatriz = msj.getContent().split("-");
                 ArrayList<ArrayList<Dato>> datos = new ArrayList<>();
+//                
+//                for (int i = 0; i < infoMatriz.length; i++) {
+//                    ArrayList<Dato> datosLinea = new ArrayList<>();
+//                    
+//                    String[] infoLinea = infoMatriz[i].split(",");
+//                    
+//                    for (int j = 0; j < infoLinea.length; j++) {
+//                        Dato d= new Dato(Integer.parseInt(infoLinea[j]), false);
+//                        datosLinea.add(d);
+//                    }
+//                    datos.add(datosLinea);
+//                }
+//                System.out.println(datos);
                 
-                for (int i = 0; i < infoMatriz.length; i++) {
-                    ArrayList<Dato> datosLinea = new ArrayList<>();
-                    
-                    String[] infoLinea = infoMatriz[i].split(",");
-                    
-                    for (int j = 0; j < infoLinea.length; j++) {
-                        Dato d= new Dato(Integer.parseInt(infoLinea[j]), false);
-                        datosLinea.add(d);
-                    }
-                    datos.add(datosLinea);
-                }
-                System.out.println(datos);
                 Nonograma nonograma = new Nonograma(datos);
                 
                 nonograma.resolverNonograma();

@@ -13,15 +13,15 @@ import java.util.ArrayList;
  * @author Lenovo
  */
 public class Nonograma {
-
+    
     private ArrayList<ArrayList<Dato>> datos;
     private ArrayList<ArrayList<Integer>> solucion;
-
+    
     public Nonograma(ArrayList<ArrayList<Dato>> datos) {
         this.datos = datos;
         solucion = new ArrayList<>();
     }
-
+    
     public void resolverNonograma() {
 
         //
@@ -43,24 +43,15 @@ public class Nonograma {
             }
             this.solucion.add(x);
         }
-
-        Dato dato1 = new Dato(1, false);
-        Dato dato2 = new Dato(2, false);
-        Dato dato3 = new Dato(3, false);
-        Dato dato4 = new Dato(5, false);
-        ArrayList<Dato> elemArray = new ArrayList<>();
-
-        for (int i = 0; i < 2; i++) {
-            elemArray.add(dato2);
-            this.datos.add(elemArray);
-            elemArray.add(dato2);
-            this.datos.add(elemArray);
-            elemArray.add(dato1);
-            elemArray.add(dato2);
-            this.datos.add(elemArray);
-            elemArray.add(dato4);
-            this.datos.add(elemArray);
-            elemArray.add(dato3);
+        String[] cadenaDatos = {"2","2","1,2","5","3","2","2","1,2","5","3"};
+        
+        for (int i = 0; i < cadenaDatos.length; i++) {
+            String[] nums = cadenaDatos[i].split(",");
+            ArrayList<Dato> elemArray = new ArrayList<>();
+            for (int j = 0; j < nums.length; j++) {
+                int num= Integer.parseInt(nums[j]);
+                elemArray.add(new Dato(num, false));
+            }
             this.datos.add(elemArray);
         }
 
@@ -69,15 +60,17 @@ public class Nonograma {
         //
         //
         //
+        System.out.println("Antes de iniciar, en clase Nonograma, datos: ");
+        printData(datos);
         Estado estadoInicial = new Estado(-1, null, this.datos, this.solucion);
-
+        
         if (!estadoInicial.isSolucionado()) {
             System.out.println("Una solución no pudo ser encontrada");
         } else {
             printMatrix(solucion);
         }
     }
-
+    
     public void printMatrix(ArrayList<ArrayList<Integer>> matrix) {
         for (int i = 0; i < matrix.size(); i++) {
             System.out.print(i + " - ");
@@ -88,5 +81,15 @@ public class Nonograma {
         }
         System.out.println("\n");
     }
-
+    
+    public static void printData(ArrayList<ArrayList<Dato>> data) {
+        for (int i = 0; i < data.size(); i++) {
+            System.out.print(i + " - ");
+            for (int j = 0; j < data.get(i).size(); j++) {
+                System.out.print("[" + data.get(i).get(j).getValor() + "," + data.get(i).get(j).isCompletado() + "] ");
+            }
+            System.out.println();
+        }
+        System.out.println("\n");
+    }
 }

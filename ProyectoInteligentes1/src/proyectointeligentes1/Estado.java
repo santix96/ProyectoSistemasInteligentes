@@ -28,6 +28,8 @@ public class Estado {
         hijos = new ArrayList<>();
         solucionado = false;
         System.out.println("nivel: " + nivel);
+        System.out.println("DATOSSSSSSSSSS");
+        printData(datos);
         this.generarHijos();
     }
 
@@ -41,7 +43,6 @@ public class Estado {
                 cant2++;
             }
         }
-        System.out.println("cantidad de '2' en la fila" + (this.nivel + 1) + ": " + cant2);
 
         String[] elementos = {"1", "0"};
         int n = cant2; //La cantidad de 2, que son los que se permutarán
@@ -64,15 +65,11 @@ public class Estado {
             for (int i = 0; i < this.solucion.get(nivel + 1).size(); i++) {
                 numsFila.add(this.solucion.get(nivel + 1).get(i));
             }
-
-            System.out.println("numsFila::: " + numsFila);
             for (int i = 0; i < numsFila.size(); i++) {
-                System.out.println("numsFila.get(i) = " + numsFila.get(i));
+
                 if (numsFila.get(i) == 2) {
                     int num = Integer.parseInt(perm[k]);
-                    System.out.println("numsFila antes: " + numsFila);
                     numsFila.set(i, num);
-                    System.out.println("numsFila después: " + numsFila);
                     k++;
                 }
             }
@@ -80,6 +77,7 @@ public class Estado {
             if (cumpleCondicion(numsFila, true)) {
 
                 if (this.nivel + 1 < this.getSolucion().size()) {
+                    System.out.println("tamaño solución: "+this.getSolucion().size()+ " nivel: "+this.nivel);
                     this.agregarHijo(numsFila);
 
                 } else if (this.nivel + 1 == this.getSolucion().size() && cumpleColumnas(numsFila)) {
@@ -112,22 +110,17 @@ public class Estado {
         ArrayList<Integer> bloques = new ArrayList<>(); //Contador de cuántos datos (bloques de 1) ya se han comprobado 
         //en el parámetro numsFila
         int cont1 = 0; //Cuenta los número '1' consecutivos que se va encontrando
-        boolean cumple = false;
         for (int i = 0; i < numsFila.size(); i++) {
             if (numsFila.get(i) == 1) {
                 cont1++;
-                System.out.println("entró, celda=1");
                 if (i == numsFila.size() - 1) {
                     bloques.add(cont1);
                 }
             } else if (numsFila.get(i) == 0) {
-                System.out.println("entró, celda=0");
                 if (i > 0) //Si no nos encontramos en la primera posición
                 {
-                    System.out.println("entró, i>0");
                     if (numsFila.get(i - 1) == 1) //Si el anterior número era un '1'
                     {
-                        System.out.println("entró, anterior es 1");
                         bloques.add(cont1); //Agrega la cantidad de '1's que encontró, es decir la longitud del bloque
                     }
                 }
@@ -144,11 +137,12 @@ public class Estado {
                 valores.add(this.datos.get(nivel + 1).get(i).getValor());
             }
         } else {
-
+            printData(datos);
             int N = this.datos.size();
             for (int i = 0; i < this.datos.get(N + nivel + 1).size(); i++) {
                 valores.add(this.datos.get(N + nivel + 1).get(i).getValor());
             }
+            printList(valores);
         }
 
         System.out.println("bloques: " + bloques);
@@ -158,24 +152,44 @@ public class Estado {
         return bloques.equals(valores);
     }
 
+    public static void printData(ArrayList<ArrayList<Dato>> data) {
+        for (int i = 0; i < data.size(); i++) {
+            System.out.print(i + " - ");
+            for (int j = 0; j < data.get(i).size(); j++) {
+                System.out.print("[" + data.get(i).get(j).getValor() + "," + data.get(i).get(j).isCompletado() + "] ");
+            }
+            System.out.println();
+        }
+        System.out.println("\n");
+    }
+
+    public void printList(ArrayList<Integer> list) {
+        for (int i = 0; i < list.size(); i++) {
+            System.out.print(list.get(i) + " ");
+        }
+        System.out.println("\n");
+    }
+
     public void agregarHijo(ArrayList<Integer> numsFila) {
 
-        ArrayList<ArrayList<Integer>> copiaSolucion = new ArrayList<>();
-        for (int i = 0; i < this.solucion.size(); i++) {
-            ArrayList<Integer> nums = new ArrayList<>();
-            for (int j = 0; j < this.solucion.get(i).size(); j++) {
-                nums.add(this.solucion.get(i).get(j));
+        if (this.nivel + 1 < this.solucion.size()) {
+            ArrayList<ArrayList<Integer>> copiaSolucion = new ArrayList<>();
+            for (int i = 0; i < this.solucion.size(); i++) {
+                ArrayList<Integer> nums = new ArrayList<>();
+                for (int j = 0; j < this.solucion.get(i).size(); j++) {
+                    nums.add(this.solucion.get(i).get(j));
+                }
+                copiaSolucion.add(nums);
             }
-            copiaSolucion.add(nums);
-        }
 
-        for (int i = 0; i < numsFila.size(); i++) {
-            if (copiaSolucion.get(nivel + 1).get(i) == 2) {
-                int num = numsFila.get(i);
-                copiaSolucion.get(nivel + 1).set(i, num);
+            for (int i = 0; i < numsFila.size(); i++) {
+                if (copiaSolucion.get(nivel + 1).get(i) == 2) {
+                    int num = numsFila.get(i);
+                    copiaSolucion.get(nivel + 1).set(i, num);
+                }
             }
+            this.hijos.add(new Estado(this.nivel + 1, this, this.datos, copiaSolucion));
         }
-        this.hijos.add(new Estado(this.nivel+1, this, this.datos, copiaSolucion));
     }
 
     public boolean cumpleColumnas(ArrayList<Integer> numsFila) {
