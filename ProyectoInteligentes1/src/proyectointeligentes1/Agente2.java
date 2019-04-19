@@ -47,17 +47,35 @@ public class Agente2 extends Agent {
 //                    datos.add(datosLinea);
 //                }
 //                System.out.println(datos);
-                
-                Nonograma nonograma = new Nonograma(datos);
-                
-                nonograma.resolverNonograma();
 
+                Nonograma nonograma = new Nonograma(datos);
+
+                long milliseconds = System.currentTimeMillis();
+                nonograma.resolverNonograma();
+                long executionTimeMs = System.currentTimeMillis() - milliseconds;
+
+                System.out.println("\nExecution time: " + (executionTimeMs / 1000.0) + " seconds");
+
+                String respuestaSolucion= solucionACadena(nonograma.getSolucion());
                 ACLMessage respuesta = msj.createReply();
-                respuesta.setContent("hola"); //Aquí se le manda una cadena que representa la solución del nonograma
+                respuesta.setContent(respuestaSolucion); //Aquí se le manda una cadena que representa la solución del nonograma
                 send(respuesta);
 
                 System.out.println("Solución enviada");
             }
+        }
+        
+        private String solucionACadena(ArrayList<ArrayList<Integer>> solucion)
+        {
+            String cadena="";
+            for (int i = 0; i < solucion.size(); i++) {
+                for (int j = 0; j < solucion.get(i).size(); j++) {
+                    int num= solucion.get(i).get(j);
+                    cadena+= num + ",";
+                }
+                cadena+="-";
+            }
+            return cadena;
         }
 
     }

@@ -1,5 +1,6 @@
 package proyectointeligentes1;
 
+import jade.gui.GuiEvent;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,7 +37,34 @@ public class InterfazNonograma extends javax.swing.JFrame {
 //    }
 
     public void pintarSolucion(String solucion) {
-        System.out.println(solucion);
+         int contadorX = 0;
+        int contadorY = 0;
+        String[] elementos= solucion.split("-");
+        for (int i = 0; i < elementos.length; i++) {
+            String[] nums = elementos[i].split(",");
+            
+            for (int j = 0; j < nums.length; j++) {
+                int num = Integer.parseInt(nums[j]);
+                
+                JButton boton = new JButton();
+                boton.setBounds(contadorX, contadorY, 35, 35);
+                if(num==0){
+                    boton.setBackground(Color.white);
+                }
+                else if(num==1){
+                    boton.setBackground(Color.BLACK);
+                }
+                String nombre = i + " " + j;
+                boton.setName(nombre);
+                boton.setText("");
+                contadorX += 35;
+                jPanel1.add(boton);
+            }
+            contadorX = 0;
+            contadorY += 35;
+        }
+
+        jPanel1.repaint();
     }
 
     /**
@@ -193,42 +221,43 @@ public class InterfazNonograma extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
-        try {
-            File archivo = new File("./archivos/Futbol.txt");
-            BufferedReader datos = new BufferedReader(new FileReader(archivo));
-
-            String str = "";
-            int lineas = 0;
-
-            while ((str = datos.readLine()) != null) {
-
-                if (str.length() > 0 && str.charAt(0) == '#') {
-                    continue; // Este símbolo se ignora, por lo tanto se le dice 
-                    //que continúe a la siguiente iteración del ciclo while
-                }
-
-                StringTokenizer st = new StringTokenizer(str);
-
-                while (st.hasMoreTokens()) {
-
-                    int dato = Integer.parseInt(st.nextToken());
-
-                    datosEnviar += dato + ","; //Se usa coma para separar los números
-                }
-
-                datosEnviar += "-"; //Se usa guión para distinguir cada línea que se lee del archivo
-                lineas++;
-            }
-
-            if (lineas % 2 != 0) {
-                Exception e = new Exception("Los nonogramas deben tener igual cantidad de filas y columnas (NxN).");
-                throw e;
-            }
-            System.out.println(getDatosEnviar());
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        
+//        try {
+//            File archivo = new File("./archivos/Futbol.txt");
+//            BufferedReader datos = new BufferedReader(new FileReader(archivo));
+//
+//            String str = "";
+//            int lineas = 0;
+//
+//            while ((str = datos.readLine()) != null) {
+//
+//                if (str.length() > 0 && str.charAt(0) == '#') {
+//                    continue; // Este símbolo se ignora, por lo tanto se le dice 
+//                    //que continúe a la siguiente iteración del ciclo while
+//                }
+//
+//                StringTokenizer st = new StringTokenizer(str);
+//
+//                while (st.hasMoreTokens()) {
+//
+//                    int dato = Integer.parseInt(st.nextToken());
+//
+//                    datosEnviar += dato + ","; //Se usa coma para separar los números
+//                }
+//
+//                datosEnviar += "-"; //Se usa guión para distinguir cada línea que se lee del archivo
+//                lineas++;
+//            }
+//
+//            if (lineas % 2 != 0) {
+//                Exception e = new Exception("Los nonogramas deben tener igual cantidad de filas y columnas (NxN).");
+//                throw e;
+//            }
+//            System.out.println(getDatosEnviar());
+//
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
