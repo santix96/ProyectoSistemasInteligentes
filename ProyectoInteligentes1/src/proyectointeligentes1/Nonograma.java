@@ -13,39 +13,20 @@ import java.util.ArrayList;
  * @author Lenovo
  */
 public class Nonograma {
-
+    
     private ArrayList<ArrayList<Dato>> datos;
     private ArrayList<ArrayList<Integer>> solucion;
-
+    
     public Nonograma(ArrayList<ArrayList<Dato>> datos) {
         this.datos = datos;
         solucion = new ArrayList<>();
     }
-
+    
     public void resolverNonograma() {
 
-        //
-        //
-        //AQUÍ APLICAR LAS REGLAS
-        //
-        //
-        //Después de aplicar las reglas, con las cuales se obtiene la solución inicial
-        //para ingresar a nuestro algoritmo
-        //
-        //
-        //
-        //
-        //Ejemplo temporal de solución y datos obtenidos después de aplicar las reglas
-        for (int i = 0; i < 5; i++) {
-            ArrayList<Integer> x = new ArrayList<Integer>();
-            for (int j = 0; j < 5; j++) {
-                x.add(2);
-            }
-            this.getSolucion().add(x);
-        }
         //Luna
-        String[] cadenaDatos = {"2","2","1,2","5","3","2","2","1,2","5","3"};
-
+        String[] cadenaDatos = {"2", "2", "1,2", "5", "3", "2", "2", "1,2", "5", "3"};
+        
         //Unicornio
 //        String[] cadenaDatos = {"11,13", "11,10,2", "3,2,8,3", "1,1,1,5,4", "3,2,2,3,5",
 //            "1,2,2,6", "2,1,7", "1,1,1,8", "1,3,9", "2,3,8", "2,1,7",
@@ -55,7 +36,7 @@ public class Nonograma {
 //            "4,10", "2,9", "1,9", "5,2,9", "3,1,2,9", "4,1,1,9", "6,1,8",
 //            "6,1,8", "5,3,6", "4,6,6", "3,8,6", "2,10,1,7", "2,12,8",
 //            "1,23", "25", "25"};
-
+        
         for (int i = 0; i < cadenaDatos.length; i++) {
             String[] nums = cadenaDatos[i].split(",");
             ArrayList<Dato> elemArray = new ArrayList<>();
@@ -65,23 +46,18 @@ public class Nonograma {
             }
             this.datos.add(elemArray);
         }
+        
+        this.setSolucion(Reglas.aplicarReglas(datos));
+        printMatrix(this.solucion);
 
-        //
-        //
-        //
-        //
-        //
-        //
-        //NO editar desde aquí
-        //
         Estado estadoInicial = new Estado(-1, null, this.datos, this.getSolucion());
-
+        
         if (!estadoInicial.isSolucionado()) {
         } else {
-            this.solucion=estadoInicial.getSolucion();
+            this.solucion = estadoInicial.getSolucion();
         }
     }
-
+    
     public void printMatrix(ArrayList<ArrayList<Integer>> matrix) {
         for (int i = 0; i < matrix.size(); i++) {
             System.out.print(i + " - ");
@@ -92,7 +68,7 @@ public class Nonograma {
         }
         System.out.println("\n");
     }
-
+    
     public static void printData(ArrayList<ArrayList<Dato>> data) {
         for (int i = 0; i < data.size(); i++) {
             System.out.print(i + " - ");
@@ -109,5 +85,12 @@ public class Nonograma {
      */
     public ArrayList<ArrayList<Integer>> getSolucion() {
         return solucion;
+    }
+
+    /**
+     * @param solucion the solucion to set
+     */
+    public void setSolucion(ArrayList<ArrayList<Integer>> solucion) {
+        this.solucion = solucion;
     }
 }

@@ -32,4 +32,22 @@ class Dato {
     public boolean isCompletado() {
         return completado;
     }
+    
+    /**
+     * @param valor the valor to set
+     */
+    public void setValor(int valor) {
+        this.valor = valor;
+    }
+
+    /**
+     * @param completado the completado to set
+     */
+    public void setCompletado(boolean completado) {
+        this.completado = completado;
+    }
+
+    public Dato clonar() {
+        return (new Dato(this.getValor(), this.isCompletado()));
+    }
 }

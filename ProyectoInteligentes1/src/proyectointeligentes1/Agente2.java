@@ -65,6 +65,10 @@ public class Agente2 extends Agent {
             }
         }
         
+        /*
+        * Convierte la solución encontrada a cadena, y así poder ser enviada
+        * como un mensaje al Agente1
+        */
         private String solucionACadena(ArrayList<ArrayList<Integer>> solucion)
         {
             String cadena="";
