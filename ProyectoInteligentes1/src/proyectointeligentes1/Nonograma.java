@@ -25,7 +25,7 @@ public class Nonograma {
     public void resolverNonograma() {
 
         //Luna
-        String[] cadenaDatos = {"2", "2", "1,2", "5", "3", "2", "2", "1,2", "5", "3"};
+//        String[] cadenaDatos = {"2", "2", "1,2", "5", "3", "2", "2", "1,2", "5", "3"};
         
         //Unicornio
 //        String[] cadenaDatos = {"11,13", "11,10,2", "3,2,8,3", "1,1,1,5,4", "3,2,2,3,5",
@@ -36,25 +36,35 @@ public class Nonograma {
 //            "4,10", "2,9", "1,9", "5,2,9", "3,1,2,9", "4,1,1,9", "6,1,8",
 //            "6,1,8", "5,3,6", "4,6,6", "3,8,6", "2,10,1,7", "2,12,8",
 //            "1,23", "25", "25"};
-        
-        for (int i = 0; i < cadenaDatos.length; i++) {
-            String[] nums = cadenaDatos[i].split(",");
-            ArrayList<Dato> elemArray = new ArrayList<>();
-            for (int j = 0; j < nums.length; j++) {
-                int num = Integer.parseInt(nums[j]);
-                elemArray.add(new Dato(num, false));
-            }
-            this.datos.add(elemArray);
-        }
-        
+
+        //inicializarSolucion(solucion, this.datos.size()/2);
         this.setSolucion(Reglas.aplicarReglas(datos));
         printMatrix(this.solucion);
 
+        
         Estado estadoInicial = new Estado(-1, null, this.datos, this.getSolucion());
         
         if (!estadoInicial.isSolucionado()) {
         } else {
-            this.solucion = estadoInicial.getSolucion();
+            setSolucion(estadoInicial.getSolucion());
+        }
+    }
+    
+        /*
+    Este metodo se encarga de inicializar la solucion principal, esta 
+    es una matriz completa llena de numeros 2(estados no completados).
+     */
+    private static void inicializarSolucion(ArrayList<ArrayList<Integer>> solucion, int N) {
+
+        for (int i = 0; i < N; i++) {
+
+            ArrayList<Integer> x = new ArrayList<Integer>();
+
+            for (int j = 0; j < N; j++) {
+                x.add(2);
+            }
+
+            solucion.add(x);
         }
     }
     

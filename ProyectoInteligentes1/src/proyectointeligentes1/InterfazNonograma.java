@@ -88,7 +88,7 @@ public class InterfazNonograma extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1500, 700));
+        setPreferredSize(new java.awt.Dimension(1100, 700));
         setSize(new java.awt.Dimension(1500, 700));
 
         jLabel1.setText("Sisigramas");
@@ -156,34 +156,33 @@ public class InterfazNonograma extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(794, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2))))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
 
         pack();
@@ -222,42 +221,42 @@ public class InterfazNonograma extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         
-//        try {
-//            File archivo = new File("./archivos/Futbol.txt");
-//            BufferedReader datos = new BufferedReader(new FileReader(archivo));
-//
-//            String str = "";
-//            int lineas = 0;
-//
-//            while ((str = datos.readLine()) != null) {
-//
-//                if (str.length() > 0 && str.charAt(0) == '#') {
-//                    continue; // Este símbolo se ignora, por lo tanto se le dice 
-//                    //que continúe a la siguiente iteración del ciclo while
-//                }
-//
-//                StringTokenizer st = new StringTokenizer(str);
-//
-//                while (st.hasMoreTokens()) {
-//
-//                    int dato = Integer.parseInt(st.nextToken());
-//
-//                    datosEnviar += dato + ","; //Se usa coma para separar los números
-//                }
-//
-//                datosEnviar += "-"; //Se usa guión para distinguir cada línea que se lee del archivo
-//                lineas++;
-//            }
-//
-//            if (lineas % 2 != 0) {
-//                Exception e = new Exception("Los nonogramas deben tener igual cantidad de filas y columnas (NxN).");
-//                throw e;
-//            }
-//            System.out.println(getDatosEnviar());
-//
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
+        try {
+            File archivo = new File("./archivos/Futbol.txt");
+            BufferedReader datos = new BufferedReader(new FileReader(archivo));
+
+            String str = "";
+            int lineas = 0;
+
+            while ((str = datos.readLine()) != null) {
+
+                if (str.length() > 0 && str.charAt(0) == '#') {
+                    continue; // Este símbolo se ignora, por lo tanto se le dice 
+                    //que continúe a la siguiente iteración del ciclo while
+                }
+
+                StringTokenizer st = new StringTokenizer(str);
+
+                while (st.hasMoreTokens()) {
+
+                    int dato = Integer.parseInt(st.nextToken());
+
+                    datosEnviar += dato + ","; //Se usa coma para separar los números
+                }
+
+                datosEnviar += "-"; //Se usa guión para distinguir cada línea que se lee del archivo
+                lineas++;
+            }
+
+            if (lineas % 2 != 0) {
+                Exception e = new Exception("Los nonogramas deben tener igual cantidad de filas y columnas (NxN).");
+                throw e;
+            }
+            System.out.println(getDatosEnviar());
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

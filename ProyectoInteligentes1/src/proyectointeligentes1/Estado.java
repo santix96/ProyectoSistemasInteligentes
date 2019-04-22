@@ -12,14 +12,14 @@ import java.util.ArrayList;
  * @author Lenovo
  */
 public class Estado {
-    
+
     private int nivel;
     private Estado padre;
     private ArrayList<Estado> hijos;
     private ArrayList<ArrayList<Dato>> datos;
     private ArrayList<ArrayList<Integer>> solucion;
     private boolean solucionado;
-    
+
     public Estado(int nivel, Estado padre, ArrayList<ArrayList<Dato>> datos, ArrayList<ArrayList<Integer>> solucion) {
         this.nivel = nivel;
         this.padre = padre;
@@ -29,7 +29,7 @@ public class Estado {
         solucionado = false;
         this.generarHijos();
     }
-    
+
     public void generarHijos() {
         int cant2 = 0; //Cantidad de números '2' que contiene la lista de números
         //de la fila correspondiente a este nivel, para saber cuántas combinaciones
@@ -39,13 +39,25 @@ public class Estado {
                 cant2++;
             }
         }
-        
-        String[] elementos = {"1", "0"};
-        int n = cant2; //La cantidad de 2, que son los que se permutarán
-        int r = 2;   //Cantidad de elementos elegidos, "1" y "0"
-        Perm(elementos, "", n, r);
+
+        if (cant2 == 0) {
+            System.out.println("CANT2: " + cant2);
+            if (this.nivel + 2 == this.solucion.size()) {
+                System.out.println("ÚLTIMO NIVEL, CANT2=0");
+                setSolucionado(true);
+                this.setSolucion(this.getSolucion());
+            }
+            else{
+                this.agregarHijo(this.solucion.get(nivel + 1));
+            }
+        } else {
+            String[] elementos = {"1", "0"};
+            int n = cant2; //La cantidad de 2, que son los que se permutarán
+            int r = 2;   //Cantidad de elementos elegidos, "1" y "0"
+            Perm(elementos, "", n, r);
+        }
     }
-    
+
     private void Perm(String[] elem, String act, int n, int r) {
         if (n == 0) {
             //Aquí la variable 'act' ya tiene una permutación completa,
@@ -56,24 +68,24 @@ public class Estado {
             int k = 0; //Contador para ir asignando los números de 'act' a la fila solución
             //en las celdas que tiene un '2'
             ArrayList<Integer> numsFila = new ArrayList<>();
-            
+
             for (int i = 0; i < this.solucion.get(nivel + 1).size(); i++) {
                 numsFila.add(this.solucion.get(nivel + 1).get(i));
             }
             for (int i = 0; i < numsFila.size(); i++) {
-                
+
                 if (numsFila.get(i) == 2) {
                     int num = Integer.parseInt(perm[k]);
                     numsFila.set(i, num);
                     k++;
                 }
             }
-            
+
             if (cumpleCondicion(numsFila)) {
-                
+
                 if (this.nivel + 2 < this.getSolucion().size()) {
                     this.agregarHijo(numsFila);
-                    
+
                 } else if (this.nivel + 2 == this.getSolucion().size()) {
                     if (cumpleColumnas(numsFila)) {
                         //Asignar esta fila a la solución real
@@ -83,13 +95,13 @@ public class Estado {
                                 this.getSolucion().get(nivel + 1).set(i, num);
                             }
                         }
-                        
+
                         setSolucionado(true);
                         this.setSolucion(this.getSolucion());
                     }
                 }
             }
-            
+
             act = "";
         } else {
             for (int i = 0; i < r; i++) {
@@ -97,7 +109,7 @@ public class Estado {
             }
         }
     }
-    
+
     public boolean cumpleCondicion(ArrayList<Integer> numsFila) {
         //int cantDatos = this.datos.get(nivel+1).size(); //Cantidad de datos, en el nivel
         ////es decir, cantidad de bloques de 1 que deben haber
@@ -127,16 +139,16 @@ public class Estado {
         //Obtener los valores de cada dato
         //Cuando se refiere a filas
         ArrayList<Integer> valores = new ArrayList<>();
-        
+
         for (int i = 0; i < this.datos.get(nivel + 1).size(); i++) {
             valores.add(this.datos.get(nivel + 1).get(i).getValor());
         }
-        
+
         return bloques.equals(valores);
     }
-        
+
     public void agregarHijo(ArrayList<Integer> numsFila) {
-        
+
         if (this.nivel + 1 < this.solucion.size()) {
             ArrayList<ArrayList<Integer>> copiaSolucion = new ArrayList<>();
             for (int i = 0; i < this.solucion.size(); i++) {
@@ -146,7 +158,7 @@ public class Estado {
                 }
                 copiaSolucion.add(nums);
             }
-            
+
             for (int i = 0; i < numsFila.size(); i++) {
                 if (copiaSolucion.get(nivel + 1).get(i) == 2) {
                     int num = numsFila.get(i);
@@ -156,9 +168,9 @@ public class Estado {
             this.hijos.add(new Estado(this.nivel + 1, this, this.datos, copiaSolucion));
         }
     }
-    
+
     public boolean cumpleColumnas(ArrayList<Integer> numsFila) {
-        
+
         ArrayList<ArrayList<Integer>> copiaSolucion = new ArrayList<>();
         for (int i = 0; i < this.solucion.size(); i++) {
             ArrayList<Integer> nums = new ArrayList<>();
@@ -174,7 +186,7 @@ public class Estado {
         //Transponer matriz
         ArrayList<ArrayList<Integer>> resultado = new ArrayList<ArrayList<Integer>>();
         resultado = transponerMatriz(copiaSolucion);
-        
+
         boolean flag = false;
         for (int k = 0; k < resultado.size(); k++) {
 
@@ -198,21 +210,21 @@ public class Estado {
                     cont1 = 0;
                 }
             }
-            
+
             ArrayList<Integer> valores = new ArrayList<>();
             for (int i = 0; i < this.datos.get(nivel + 2 + k).size(); i++) {
                 valores.add(this.datos.get(nivel + 2 + k).get(i).getValor());
             }
-                        
+
             flag = bloques.equals(valores);
             if (!flag) {
                 break;
             }
-            
+
         }
         return flag;
     }
-    
+
     public ArrayList<ArrayList<Integer>> transponerMatriz(ArrayList<ArrayList<Integer>> matriz) {
         ArrayList<ArrayList<Integer>> resultado = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i < matriz.size(); i++) {
@@ -225,7 +237,7 @@ public class Estado {
         }
         return resultado;
     }
-    
+
     public void printMatrix(ArrayList<ArrayList<Integer>> matrix) {
         for (int i = 0; i < matrix.size(); i++) {
             System.out.print(i + " - ");
@@ -236,7 +248,8 @@ public class Estado {
         }
         System.out.println("\n");
     }
-        public static void printData(ArrayList<ArrayList<Dato>> data) {
+
+    public static void printData(ArrayList<ArrayList<Dato>> data) {
         for (int i = 0; i < data.size(); i++) {
             System.out.print(i + " - ");
             for (int j = 0; j < data.get(i).size(); j++) {
@@ -246,7 +259,7 @@ public class Estado {
         }
         System.out.println("\n");
     }
-    
+
     public void printList(ArrayList<Integer> list) {
         for (int i = 0; i < list.size(); i++) {
             System.out.print(list.get(i) + " ");

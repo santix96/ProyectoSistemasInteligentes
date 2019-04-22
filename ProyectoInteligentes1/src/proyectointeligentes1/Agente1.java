@@ -35,7 +35,7 @@ public class Agente1 extends Agent {
             ACLMessage msj = new ACLMessage(ACLMessage.REQUEST);
             msj.setSender(getAID());
             msj.addReceiver(idReceptor);
-            doWait(10000);
+            doWait(13000);
             msj.setContent(gui.getDatosEnviar());
             send(msj);
 
