@@ -86,57 +86,6 @@ public class Reglas {
         return solucion;
     }
     
-    public static ArrayList<ArrayList<Integer>> aplicarReglasDespues(ArrayList<ArrayList<Dato>> datos, ArrayList<ArrayList<Integer>> solucion) {
-
-        boolean cambio = false;
-        ArrayList respuesta = new ArrayList();
-
-        do {
-            cambio = false;
-
-            respuesta = aplicarRegla3(datos, solucion);
-
-            cambio = Boolean.parseBoolean(respuesta.get(0).toString());
-            solucion = (ArrayList<ArrayList<Integer>>) respuesta.get(1);
-            datos = (ArrayList<ArrayList<Dato>>) respuesta.get(2);
-
-            respuesta = aplicarRegla4(datos, solucion);
-
-            if (!cambio) {
-                cambio = Boolean.parseBoolean(respuesta.get(0).toString());
-            }
-            solucion = (ArrayList<ArrayList<Integer>>) respuesta.get(1);
-            datos = (ArrayList<ArrayList<Dato>>) respuesta.get(2);
-
-            respuesta = aplicarRegla5(datos, solucion);
-
-            if (!cambio) {
-                cambio = Boolean.parseBoolean(respuesta.get(0).toString());
-            }
-            solucion = (ArrayList<ArrayList<Integer>>) respuesta.get(1);
-            datos = (ArrayList<ArrayList<Dato>>) respuesta.get(2);
-
-            respuesta = aplicarRegla6(datos, solucion);
-
-            if (!cambio) {
-                cambio = Boolean.parseBoolean(respuesta.get(0).toString());
-            }
-            solucion = (ArrayList<ArrayList<Integer>>) respuesta.get(1);
-            datos = (ArrayList<ArrayList<Dato>>) respuesta.get(2);
-
-            respuesta = aplicarRegla7(datos, solucion);
-
-            if (!cambio) {
-                cambio = Boolean.parseBoolean(respuesta.get(0).toString());
-            }
-            solucion = (ArrayList<ArrayList<Integer>>) respuesta.get(1);
-            datos = (ArrayList<ArrayList<Dato>>) respuesta.get(2);
-
-        } while (cambio);
-
-        return solucion;
-    }
-
     /*
     Este metodo se encarga de rotar la matriz solucion hacia la izquierda, para
     poder acceder a las columnas ingresando a estas como si fueran filas:

@@ -41,13 +41,11 @@ public class Estado {
         }
 
         if (cant2 == 0) {
-            System.out.println("CANT2: " + cant2);
-            if (this.nivel + 2 == this.solucion.size()) {
-                System.out.println("ÚLTIMO NIVEL, CANT2=0");
+            ArrayList<Integer> numsFila = getSolucion().get(nivel+1);
+            if (this.nivel + 2 == this.solucion.size() && cumpleColumnas(numsFila)) {
                 setSolucionado(true);
                 this.setSolucion(this.getSolucion());
-            }
-            else{
+            } else {
                 this.agregarHijo(this.solucion.get(nivel + 1));
             }
         } else {
@@ -188,6 +186,8 @@ public class Estado {
         resultado = transponerMatriz(copiaSolucion);
 
         boolean flag = false;
+        int N = this.datos.size() / 2;
+        System.out.println("resultado.size() = "+resultado.size());
         for (int k = 0; k < resultado.size(); k++) {
 
             ArrayList<Integer> bloques = new ArrayList<>(); //Contador de cuántos datos (bloques de 1) ya se han comprobado 
@@ -211,11 +211,17 @@ public class Estado {
                 }
             }
 
+//            ArrayList<Integer> valores = new ArrayList<>();
+//            for (int i = 0; i < this.datos.get(nivel + 2 + k).size(); i++) {
+//                valores.add(this.datos.get(nivel + 2 + k).get(i).getValor());
+//            }
+            System.out.println("k:"+k+" N:"+N);
             ArrayList<Integer> valores = new ArrayList<>();
-            for (int i = 0; i < this.datos.get(nivel + 2 + k).size(); i++) {
-                valores.add(this.datos.get(nivel + 2 + k).get(i).getValor());
+            for (int i = 0; i < this.datos.get(k+1+N).size(); i++) {
+                valores.add(this.datos.get(k+1+N).get(i).getValor());
             }
-
+            System.out.println("bloques: "+bloques);
+            System.out.println("valores: "+valores);
             flag = bloques.equals(valores);
             if (!flag) {
                 break;
