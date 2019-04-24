@@ -245,10 +245,10 @@ public class InterfazNonograma extends javax.swing.JFrame {
 
                     int dato = Integer.parseInt(st.nextToken());
 
-                    datosEnviar += dato + ","; //Se usa coma para separar los números
+                    setDatosEnviar(datosEnviar + dato + ","); //Se usa coma para separar los números
                 }
 
-                datosEnviar += "-"; //Se usa guión para distinguir cada línea que se lee del archivo
+                setDatosEnviar(datosEnviar + "-"); //Se usa guión para distinguir cada línea que se lee del archivo
                 lineas++;
             }
 
@@ -375,5 +375,12 @@ public class InterfazNonograma extends javax.swing.JFrame {
      */
     public String getDatosEnviar() {
         return datosEnviar;
+    }
+
+    /**
+     * @param datosEnviar the datosEnviar to set
+     */
+    public void setDatosEnviar(String datosEnviar) {
+        this.datosEnviar = datosEnviar;
     }
 }

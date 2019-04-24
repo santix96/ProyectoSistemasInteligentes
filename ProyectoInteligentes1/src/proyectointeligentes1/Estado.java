@@ -182,20 +182,14 @@ public class Estado {
         for (int i = 0; i < numsFila.size(); i++) {
             copiaSolucion.get(nivel + 1).set(i, numsFila.get(i));
         }
-        System.out.println("\nsolución:");
-        printMatrix(solucion);
-        System.out.println("\ncopiaSolucion:");
-        printMatrix(copiaSolucion);
+
         //Transponer matriz
         ArrayList<ArrayList<Integer>> resultado = new ArrayList<ArrayList<Integer>>();
         resultado = transponerMatriz(copiaSolucion);
 
-        System.out.println("\nresultado matriz transpuesta:");
-        printMatrix(resultado);
 
         boolean flag = false;
         int N = this.datos.size() / 2;
-        System.out.println("resultado.size() = " + resultado.size());
         for (int k = 0; k < resultado.size(); k++) {
 
             ArrayList<Integer> bloques = new ArrayList<>(); //Contador de cuántos datos (bloques de 1) ya se han comprobado 
@@ -219,17 +213,10 @@ public class Estado {
                 }
             }
 
-//            ArrayList<Integer> valores = new ArrayList<>();
-//            for (int i = 0; i < this.datos.get(nivel + 2 + k).size(); i++) {
-//                valores.add(this.datos.get(nivel + 2 + k).get(i).getValor());
-//            }
-            System.out.println("k:" + k + " N:" + N);
             ArrayList<Integer> valores = new ArrayList<>();
             for (int i = 0; i < this.datos.get(k + N).size(); i++) {
                 valores.add(this.datos.get(k + N).get(i).getValor());
             }
-            System.out.println("bloques: " + bloques);
-            System.out.println("valores: " + valores);
             flag = bloques.equals(valores);
             if (!flag) {
                 break;

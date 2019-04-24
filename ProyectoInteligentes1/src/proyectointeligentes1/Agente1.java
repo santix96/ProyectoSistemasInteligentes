@@ -35,17 +35,19 @@ public class Agente1 extends Agent {
             ACLMessage msj = new ACLMessage(ACLMessage.REQUEST);
             msj.setSender(getAID());
             msj.addReceiver(idReceptor);
-            doWait(13000);
-            msj.setContent(gui.getDatosEnviar());
-            send(msj);
+            
+            if (!gui.getDatosEnviar().isEmpty()) {
+                msj.setContent(gui.getDatosEnviar());
+                gui.setDatosEnviar("");
+                send(msj);
 
+                ACLMessage respuesta = blockingReceive();
 
-            ACLMessage respuesta = blockingReceive();
-
-            if (respuesta != null) {
-                String solucion = respuesta.getContent();
-                gui.pintarSolucion(solucion);
-                takeDown();
+                if (respuesta != null) {
+                    String solucion = respuesta.getContent();
+                    gui.pintarSolucion(solucion);
+                    takeDown();
+                }
             }
         }
     }
