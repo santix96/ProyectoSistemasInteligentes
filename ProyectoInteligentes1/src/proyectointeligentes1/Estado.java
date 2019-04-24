@@ -41,10 +41,12 @@ public class Estado {
         }
 
         if (cant2 == 0) {
-            ArrayList<Integer> numsFila = getSolucion().get(nivel+1);
-            if (this.nivel + 2 == this.solucion.size() && cumpleColumnas(numsFila)) {
-                setSolucionado(true);
-                this.setSolucion(this.getSolucion());
+            ArrayList<Integer> numsFila = getSolucion().get(nivel + 1);
+            if (this.nivel + 2 == this.solucion.size()) {
+                if (cumpleColumnas(numsFila)) {
+                    setSolucionado(true);
+                    this.setSolucion(this.getSolucion());
+                }
             } else {
                 this.agregarHijo(this.solucion.get(nivel + 1));
             }
@@ -180,14 +182,20 @@ public class Estado {
         for (int i = 0; i < numsFila.size(); i++) {
             copiaSolucion.get(nivel + 1).set(i, numsFila.get(i));
         }
-
+        System.out.println("\nsolución:");
+        printMatrix(solucion);
+        System.out.println("\ncopiaSolucion:");
+        printMatrix(copiaSolucion);
         //Transponer matriz
         ArrayList<ArrayList<Integer>> resultado = new ArrayList<ArrayList<Integer>>();
         resultado = transponerMatriz(copiaSolucion);
 
+        System.out.println("\nresultado matriz transpuesta:");
+        printMatrix(resultado);
+
         boolean flag = false;
         int N = this.datos.size() / 2;
-        System.out.println("resultado.size() = "+resultado.size());
+        System.out.println("resultado.size() = " + resultado.size());
         for (int k = 0; k < resultado.size(); k++) {
 
             ArrayList<Integer> bloques = new ArrayList<>(); //Contador de cuántos datos (bloques de 1) ya se han comprobado 
@@ -215,13 +223,13 @@ public class Estado {
 //            for (int i = 0; i < this.datos.get(nivel + 2 + k).size(); i++) {
 //                valores.add(this.datos.get(nivel + 2 + k).get(i).getValor());
 //            }
-            System.out.println("k:"+k+" N:"+N);
+            System.out.println("k:" + k + " N:" + N);
             ArrayList<Integer> valores = new ArrayList<>();
-            for (int i = 0; i < this.datos.get(k+1+N).size(); i++) {
-                valores.add(this.datos.get(k+1+N).get(i).getValor());
+            for (int i = 0; i < this.datos.get(k + N).size(); i++) {
+                valores.add(this.datos.get(k + N).get(i).getValor());
             }
-            System.out.println("bloques: "+bloques);
-            System.out.println("valores: "+valores);
+            System.out.println("bloques: " + bloques);
+            System.out.println("valores: " + valores);
             flag = bloques.equals(valores);
             if (!flag) {
                 break;

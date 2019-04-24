@@ -226,7 +226,7 @@ public class InterfazNonograma extends javax.swing.JFrame {
 
         
         try {
-            File archivo = new File("./archivos/Unicorn.txt");
+            File archivo = new File("./archivos/Horse.txt");
             BufferedReader datos = new BufferedReader(new FileReader(archivo));
 
             String str = "";
